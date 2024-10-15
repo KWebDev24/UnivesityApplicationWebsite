@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Application Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background-image: url(images/gradimg.png); /* Add your image path here */
+            background-size: cover;
+            background-position: center;
+            color: white; /* Ensures text is visible on the background */
+            border-radius: 5px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: white; /* Ensures the text is visible */
+            margin: 0;
+        }
+
+        header p {
+            font-size: 16px;
+            color: white; /* Text color on background */
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        #results {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            color: #666;
+        }
+
+        .important-documents {
+            margin-top: 10px;
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body style="background-color: lightgrey;" background="Graduate.jpg">
+    <div class="container" style="background-color:lightgrey;">
+        <header>
+            <h1><b><font size="20">Welcome to University Application Website</font></b></h1>
+            <p><b><font size="5">Apply to different universities based on your preferences.</font></b></p>
+        </header>
+        <main>
+            <section>
+                <h2><b><font color=blue>Search for Universities</font></b></h2>
+                <label for="location">Location:</label>
+                <input type="text" id="location" placeholder="Enter location">
+                <label for="program">Program:</label>
+                <input type="text" id="program" placeholder="Enter preferred program">
+                <button onclick="searchUniversities()">Search</button>
+
+                <p class="important-documents">IMPORTANT DOCUMENTS: Certified ID copy, Certified NSC certificate, or Grade 11 report copy. Be in possession of these documents prior to starting with your application.</p>
+            </section>
+            <section id="results">
+                <!-- Results will be displayed here -->
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2024 University Application Website. All rights reserved.</p>
+        </footer>
+    </div>
+    <script>
+        function searchUniversities() {
+            const universities = [
+                { name: "University of wits", location: "Johannesburg", program: "Engineering", link: "https://www.wits.ac.za/study-at-wits/?gclid=CjwKCAjwgdayBhBQEiwAXhMxtndPVZb3u4wAclU1X92j7iRmNgtE8pl9b28MjxuIuVXwJ0Rhmax5OhoC51IQAvD_BwE" },
+                { name: "University of Pretoria", location: "Pretoria", program: "Business", link: "https://www.up.ac.za/orientation" },
+                { name: "University of johnnesburg", location: "Johannesburg", program: "Computer Science", link: "https://www.uj.ac.za/" },
+                { name: "University of limpopo ", location: "Limpopo", program: "Medicine", link: "https://www.ul.ac.za/" },{ name: "University of TUT ", location: "johnnesburg", program: "Computer Science", link: "https://www.tut.ac.za/" },
+			    { name: "University of NWU ", location: "North West", program: "Computer Science", link: "https://studies.nwu.ac.za/?gclid=CjwKCAjwgdayBhBQEiwAXhMxtunEUonSfzZ7gyRYowakAATRKHd-Q6OY42DI1hqqsL1GY4p5LuNbLxoCI9oQAvD_BwE" },
+				{ name: "University of TUT ", location: "Pretoria", program: "Computer Science", link: "https://www.tut.ac.za/" },
+                { name: "University of Cape Town", location: "Cape Town", program: "Computer Science", link: "https://uct.ac.za"}
+			];
+			  
+            
+
+            const locationInput = document.getElementById("location").value.toLowerCase();
+            const programInput = document.getElementById("program").value.toLowerCase();
+
+            const filteredUniversities = universities.filter(university =>
+                university.location.toLowerCase().includes(locationInput) &&
+                university.program.toLowerCase().includes(programInput)
+            );
+
+            const resultsSection = document.getElementById("results");
+            resultsSection.innerHTML = "";
+
+            if (filteredUniversities.length === 0) {
+                resultsSection.innerHTML = "<p>No universities found.</p>";
+            } else {
+                filteredUniversities.forEach(university => {
+                    const universityElement = document.createElement("div");
+                    universityElement.innerHTML = `
+                        <h3>${university.name}</h3>
+                        <p><strong>Location:</strong> ${university.location}</p>
+                        <p><strong>Program:</strong> ${university.program}</p>
+                        <a href="${university.link}" target="_blank">Apply Now</a>
+                    `;
+                    resultsSection.appendChild(universityElement);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
